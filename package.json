@@ -1,0 +1,57 @@
+{
+  "name": "dsh-ask-alert",
+  "version": "1.0.0",
+  "description": "DSH plugin: always-on-top alert card, taskbar flash and repeated reminders when the assistant asks a question, waits for approval, or finishes a task.",
+  "type": "module",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.js",
+    "notify.ps1",
+    "cordis.patch.yml",
+    "locale/*.json",
+    "icon.svg",
+    "README.md",
+    "README.en.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "dsh-plugin",
+    "plugin",
+    "notification",
+    "alert",
+    "reminder",
+    "toast",
+    "windows",
+    "taskbar"
+  ],
+  "author": "bgfhsnm",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bgfhsnm/dsh-ask-alert.git"
+  },
+  "homepage": "https://github.com/bgfhsnm/dsh-ask-alert#readme",
+  "bugs": {
+    "url": "https://github.com/bgfhsnm/dsh-ask-alert/issues"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "node selftest.mjs",
+    "check": "node --check index.js"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}

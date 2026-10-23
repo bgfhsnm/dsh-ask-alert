@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Question Alert",
+    "description": "Native Windows toast, taskbar flash and repeated reminders when the assistant asks you a question, waits for approval, or finishes a task."
+  }
+}
