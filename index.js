@@ -74,7 +74,7 @@ function questionSummary(request) {
 }
 
 export const name = 'dsh-ask-alert'
-export const inject = ['subprocess']
+export const inject = ['subprocess', 'timer']
 
 export function apply(ctx, config) {
   const cfg = { ...DEFAULTS, ...(config ?? {}) }
@@ -165,6 +165,8 @@ export function apply(ctx, config) {
   }
 
   // 1) 助手向你提问：提醒会一直重复，直到你回答（next() 结算）
+  // 第三个参数 prepend=true：问答是 waterfall 事件，排在前面并直接 claim 的处理器
+  // 之后注册的监听器永远收不到请求，所以必须插到内置问答处理器之前。
   ctx.on('user-questions/request', async (request, next) => {
     const detail = questionSummary(request)
     const title = cfg.askTitle
@@ -175,9 +177,9 @@ export function apply(ctx, config) {
     } finally {
       stop()
     }
-  })
+  }, true)
 
-  // 2) 审批请求：同样重复提醒，直到批准/拒绝
+  // 2) 审批请求：同样重复提醒，直到批准/拒绝（同样是 waterfall，需要 prepend）
   ctx.on('approval/request', (request, next) => {
     if (cfg.onApproval === false) return next()
     const title = cfg.approveTitle
@@ -190,7 +192,7 @@ export function apply(ctx, config) {
     const stop = startReminder('approve', title, body)
     Promise.resolve(done).then(stop, stop)
     return done
-  })
+  }, true)
 
   // 3) 一轮任务结束：单次提醒，方便离开屏幕后知道可以回来看结果
   ctx.on('agent/status', (payload) => {
