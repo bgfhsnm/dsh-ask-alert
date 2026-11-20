@@ -55,7 +55,9 @@ Delivery is handled by `notify.ps1` (launched with `-ExecutionPolicy Bypass`, so
 
 ## Configuration
 
-The defaults work out of the box. To customise, override the row in your profile's `cordis.patch.yml`:
+The defaults work out of the box. The plugin exports a `Config` schema and renders it from its browser half (`lib/client.js`) as a form in the **Plugins → Ask alerts** page: twelve fields in four groups (texts, timing, style, repeat). There is no save button: switches write on click, text and number fields write when they lose focus (or on Enter), and a small status line reports the result.
+
+To keep configuration in version control or scripts, you can still override the row in your profile's `cordis.patch.yml` (same values as the settings form):
 
 ```yaml
 - id: dsh-ask-alert

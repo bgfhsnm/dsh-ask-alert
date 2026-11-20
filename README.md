@@ -55,7 +55,9 @@ dsh plugin --profile desktop add github:bgfhsnm/dsh-ask-alert
 
 ## 配置
 
-默认值即可直接使用。需要定制时，在 profile 的 `cordis.patch.yml` 里覆盖对应行：
+默认值即可直接使用。插件导出了 `Config` schema，并在浏览器半边（`lib/client.js`）里画成表单，出现在 **插件 → 提问提醒** 页面的配置区：提醒文案、提醒时机、提醒样式、重复提醒四组共 12 项。没有保存按钮：开关点一下就写、输入框离开焦点（或按回车）就写，右下角显示「已保存」，不必手改配置文件，也不必重启 DSH。
+
+想把配置写进版本库或脚本时，仍可以在 profile 的 `cordis.patch.yml` 里覆盖对应行（与设置页里的值是同一份配置）：
 
 ```yaml
 - id: dsh-ask-alert
@@ -73,7 +75,7 @@ dsh plugin --profile desktop add github:bgfhsnm/dsh-ask-alert
     showProject: true      # 在正文前加会话目录名
 ```
 
-修改后重启 DSH 生效。
+手改这个文件后需要重启 DSH；在设置页表单里改的立即生效（这些字段是 volatile 的，保存后直接写进当前 profile 的 patch）。
 
 只想保留提问提醒、不要「任务完成」打扰：
 
